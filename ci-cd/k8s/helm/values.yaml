@@ -1,0 +1,33 @@
+image:
+  repository: "nebbog/demo-app"
+  pullPolicy: "IfNotPresent"
+
+readinessProbe:
+  initialDelaySeconds: 60
+
+livenessProbe:
+  initialDelaySeconds: 60
+
+rollingUpdate:
+  maxUnavailable: 40%
+
+rbac:
+  role:
+    rules:
+    - apiGroups:
+      - ''
+      resources:
+      - pods
+      - configmaps
+      verbs:
+      - get
+      - watch
+      - list
+    - apiGroups:
+      - ''
+      resources:
+      - services
+      verbs:
+      - get
+      - list
+      - watch

@@ -1,0 +1,16 @@
+javaOpts: |-
+  -Xss1M
+  -XX:MaxPermSize=512m
+  -ms512M
+  -mx1024M
+
+hpa:
+  minNumberOfReplicas: 2
+
+classPathAdditions:
+  - file: "config.properties"
+  - file: "test1.properties"
+  - file: "test2.properties"
+  - file: "test3.properties"
+  - file: "test4.properties"
+  - file: "test5.properties"

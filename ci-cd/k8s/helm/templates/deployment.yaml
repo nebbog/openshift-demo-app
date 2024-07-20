@@ -1,0 +1,113 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+    version: "{{ .Values.image.tag }}"
+spec:
+  replicas: {{ .Values.hpa.minNumberOfReplicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      restartPolicy: Always
+      serviceAccountName:  demo-app
+      containers:
+      - name: demo-app
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+              - bash
+              - -c
+              - |
+                #!/usr/bin/env bash
+
+                set +e
+
+                httpStatusCode=$(curl --max-time 50 --write-out %{http_code} --silent --output /dev/null http://localhost:8080/demo-app)
+                if [[ "${httpStatusCode}" == 302 || "${httpStatusCode}" == 200 ]]; then
+                    exit 0
+                else
+                    echo "demo-app is not ready. httpd code: ${httpStatusCode}"
+                    exit 1
+                fi
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 5
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+              - bash
+              - -c
+              - |
+                #!/usr/bin/env bash
+
+                set +e
+
+                httpStatusCode=$(curl --max-time 50 --write-out %{http_code} --silent --output /dev/null http://localhost:8080/demo-app)
+                if [[ "${httpStatusCode}" == 302 || "${httpStatusCode}" == 200 ]]; then
+                    exit 0
+                else
+                    echo "demo is not ready. httpd code: ${httpStatusCode}"
+                    exit 1
+                fi
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 1
+          failureThreshold: 5    
+        env:
+        - name: DEMO_APP_VERSION
+          value: "{{ .Values.image.tag }}"
+        - name: JAVA_OPTS
+          value: "{{ .Values.javaOpts }}"
+        - name: CATALINA_OPTS
+          value: ""
+        volumeMounts:
+          - name: config-map-volume
+            mountPath: /usr/local/tomcat/conf/context.xml
+            subPath: tomcat.context.xml
+          - name: config-map-volume
+            mountPath: /usr/local/tomcat/conf/catalina.properties
+            subPath: tomcat.catalina.properties
+          - name: config-map-volume
+            mountPath: /usr/local/tomcat/conf/logging.properties
+            subPath: tomcat.logging.properties
+          - name: config-map-volume
+            mountPath: /usr/local/tomcat/conf/server.xml
+            subPath: tomcat.server.xml
+          - mountPath: /tmp
+            name: tmp
+{{- range .Values.classPathAdditions }}
+          - name: config-map-volume
+            mountPath: /usr/local/tomcat/webapps/demo-app/WEB-INF/classes/{{ .file }}
+            subPath: {{ .file }}
+{{- end }}
+      volumes:
+      - name: config-map-volume
+        configMap:
+          defaultMode: 420
+          name: demo-app
+      - name: tmp
+        emptyDir: {}
+

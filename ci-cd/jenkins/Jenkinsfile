@@ -1,0 +1,77 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: docker
+            image: nebbog/dockerbash:1.4.0
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock    
+        '''
+    }
+  }
+  stages {
+ 
+   stage('Build Java project - demo-app') {
+     steps{
+       container('docker') {
+         script {
+           sh 'cd ci-cd;./build.sh'
+         }
+       }
+     }
+   }
+
+   stage('Build demo-app tomcat image') {
+     steps{
+       container('docker') {
+         script {
+           sh 'cd ci-cd/docker;./make-image.sh'
+         }
+       }
+     }
+   }
+
+   stage('Pushing demo-app tomcat Image') {
+     environment {
+       registryCredential = 'Dockerhub-credentials'
+     }
+     steps{
+       container('docker') {
+         script {
+           withDockerRegistry([ credentialsId: 'Dockerhub-credentials', url: '' ]) {
+             sh 'cd ci-cd/docker;./push-image-to-docker-registry.sh'
+           }
+         }
+       }
+     }
+   }
+   
+    stage('Deploying to minikube cluster') {
+     steps{
+       container('docker') {
+         script {
+            sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.30.2/bin/linux/amd64/kubectl"'
+            sh 'chmod a+x ./kubectl;cp ./kubectl /tmp'
+            sh 'curl -LO https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz'
+            sh 'tar -zxvf helm-v3.15.3-linux-amd64.tar.gz;cp linux-amd64/helm /tmp'
+            sh 'kubectl version;helm version'
+            sh 'cd ci-cd/k8s;./deploy.sh'
+         }
+       }
+     }
+   }
+
+ }
+}
