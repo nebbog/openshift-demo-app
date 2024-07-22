@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-DCR_CONTAINER_REGISTRY=nebbog
+DCR_CONTAINER_REGISTRY=localhost:30100
 DEMO_APP_DCR_REPOSITORY_NAME=demo-app
 
 #set +x

@@ -1,5 +1,5 @@
 image:
-  repository: "nebbog/demo-app"
+  repository: "localhost:30100/demo-app"
   pullPolicy: "IfNotPresent"
 
 readinessProbe:
