@@ -44,15 +44,10 @@ pipeline {
    }
 
    stage('Pushing demo-app tomcat Image') {
-     #environment {
-     #  registryCredential = 'Dockerhub-credentials'
-     #}
      steps{
        container('docker') {
          script {
-           #withDockerRegistry([ credentialsId: 'Dockerhub-credentials', url: '' ]) {
              sh 'cd ci-cd/docker;./push-image-to-docker-registry.sh'
-           #}
          }
        }
      }
