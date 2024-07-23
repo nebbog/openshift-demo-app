@@ -5,6 +5,7 @@ pipeline {
         apiVersion: v1
         kind: Pod
         spec:
+          serviceAccountName: jenkins-agent
           containers:
           - name: docker
             image: localhost:30100/dockerbash:1.4.0
