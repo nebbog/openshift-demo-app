@@ -24,16 +24,6 @@ pipeline {
   }
   stages {
  
-   stage('Build Java project - demo-app') {
-     steps{
-       container('docker') {
-         script {
-           sh 'cd ci-cd;./build.sh'
-         }
-       }
-     }
-   }
-
    stage('Build demo-app tomcat image') {
      steps{
        container('docker') {
