@@ -20,6 +20,12 @@ pipeline {
             hostPath:
               path: /var/run/docker.sock    
           securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
         '''
     }
