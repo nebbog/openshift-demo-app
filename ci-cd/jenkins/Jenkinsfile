@@ -28,10 +28,8 @@ pipeline {
      steps{
        container('docker') {
          script {
-           sh 'cd ci-cd'
+           sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
            sh 'pwd;ls -lrth'
-           sh './build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
-           sh 'sleep 100000'
          }
        }
      }
