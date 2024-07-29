@@ -49,8 +49,6 @@ fi
 
 #set +x
 
-GIT_USERNAME='nebbog@gmail.com'
-GIT_PASSWORD='M&an_a*z123_'
 
 # runs git fetch.
 function gitFetch() {
@@ -102,10 +100,6 @@ function gitPull() {
         exit 1
     fi
 }
-
-git config --global user.name "${GIT_USERNAME}"
-git config --global user.password "${GIT_PASSWORD}"
-git push --set-upstream origin main
 
 echo "Fetching recent changes"
 gitFetch

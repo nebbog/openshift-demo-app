@@ -36,12 +36,13 @@ pipeline {
      steps{
        container('docker') {
          withCredentials([usernamePassword(credentialsId: 'nebbog-git-user', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-         script {
-           sh 'git config --global user.name "${GIT_USERNAME}"'
-           sh 'git config --global user.password "${GIT_PASSWORD}"'
-           sh 'git push --set-upstream origin main'
-           sh 'pwd;ls -lrth'
-           sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
+           script {
+             sh 'git config --global user.name "${GIT_USERNAME}"'
+             sh 'git config --global user.password "${GIT_PASSWORD}"'
+             sh 'git push --set-upstream origin main'
+             sh 'pwd;ls -lrth'
+             sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
+           }
          }
        }
      }
