@@ -8,7 +8,7 @@ pipeline {
           serviceAccountName: jenkins-agent
           containers:
           - name: docker
-            image: localhost:30100/dockerbash:1.4.0
+            image: localhost:30100/dockerbash:1.5.0
             command:
             - cat
             tty: true
