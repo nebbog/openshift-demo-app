@@ -101,7 +101,7 @@ function gitPull() {
 }
 
 echo "Fetching recent changes"
-#gitFetch
+gitFetch
 
 gitCheckout "main"
 gitPull "main"
