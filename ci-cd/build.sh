@@ -47,7 +47,7 @@ if [[ -z "$branchToBuild" ]]; then
     exit 1
 fi
 
-set +x
+#set +x
 
 GIT_USERNAME='nebbog@gmail.com'
 GIT_PASSWORD='M&an_a*z123_'
