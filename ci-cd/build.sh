@@ -49,7 +49,7 @@ fi
 
 set +x
 
-GIT_USERNAME='nebbog'
+GIT_USERNAME='nebbog@gmail.com'
 GIT_PASSWORD='M&an_a*z123_'
 
 # runs git fetch.
