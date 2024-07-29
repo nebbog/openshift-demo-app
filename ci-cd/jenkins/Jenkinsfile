@@ -29,7 +29,6 @@ pipeline {
        container('docker') {
          script {
            sh 'pwd;ls -lrth'
-           sh 'sleep 10000'
            sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
          }
        }
