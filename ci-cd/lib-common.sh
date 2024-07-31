@@ -13,9 +13,9 @@ cd ${COMMON_SCRIPT_DIR}
 
 VERSION_FILE_PATH=../src/version.properties
 
-if [[ -z "${DEMO_APP_VERSION}" ]]; then
+if [[ -z "${VERSION}" ]]; then
 
-    export DEMO_APP_VERSION=`cat ${VERSION_FILE_PATH}  | grep 'version=' | cut -d '=' -f 2`
+    export VERSION=`cat ${VERSION_FILE_PATH}  | grep 'version=' | cut -d '=' -f 2`
 
     if [[ -z "$VERSION_FILE_PATH" ]]; then
         echo "Error: Unable to determine DEMO_APP's Version Using: ${VERSION_FILE_PATH}"
