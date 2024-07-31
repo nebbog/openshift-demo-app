@@ -62,7 +62,7 @@ function gitVersionUpdate() {
     patch=0
     set -e
 
-    VERSION_FILE=src/version.properties
+    VERSION_FILE=../src/version.properties
 
     VERSION=$(grep 'version=' ${VERSION_FILE} | cut -d'=' -f2)
 
