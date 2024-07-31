@@ -49,57 +49,10 @@ fi
 
 #set +x
 
+source env/${env}/.env
+source env/.env
 
-# runs git fetch.
-function gitFetch() {
-
-    local repo=$(git config --get remote.origin.url)
-
-    echo "git fetch from repo: ${repo}"
-
-    git fetch
-
-    RET=$?
-
-    if [ $RET -ne 0 ];then
-        logError "Failed to fetch branches"
-        exit 1
-    fi
-}
-
-# runs git checkout
-function gitCheckout() {
-
-    local branch=${1}
-
-    echo "Checking out  ${branch}"
-
-    git checkout ${branch}
-
-    RET=$?
-
-    if [ $RET -ne 0 ];then
-        logError "Failed to checkout ${branch}"
-        exit 1
-    fi
-}
-
-# runs git pull
-function gitPull() {
-
-    local branch=${1}
-
-    echo "Pulling from ${branch}"
-
-    git pull origin ${branch}
-
-    RET=$?
-
-    if [ $RET -ne 0 ];then
-        logError "Failed to pull from  ${branch}"
-        exit 1
-    fi
-}
+source git-helper.sh
 
 echo "Fetching recent changes"
 gitFetch
@@ -111,6 +64,8 @@ gitCheckout "$branchToBuild"
 gitPull "$branchToBuild"
 
 source lib-common.sh
+
+gitVersionUpdate "build"
 
 echo "Building DEMO_APP ${DEMO_APP_VERSION}..."
 
@@ -125,4 +80,3 @@ rm -f build/libs/*.jar
 ./gradlew build --refresh-dependencies -x test
 
 cd "$CWD"
-
