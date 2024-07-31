@@ -67,7 +67,7 @@ source lib-common.sh
 
 gitVersionUpdate "build"
 
-echo "Building DEMO_APP ${DEMO_APP_VERSION}..."
+echo "Building DEMO_APP ${VERSION}..."
 
 CWD=`pwd`
 
