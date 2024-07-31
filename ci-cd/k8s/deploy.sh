@@ -1,7 +1,47 @@
 #!/usr/bin/env bash
 
+usage() { echo "Usage: $0 -i <infrastructure> -e <environment>" 1>&2; exit 1; }
+
 set -e
+
+declare inf=""
+declare env=""
+
+
+# Initialize parameters specified from command line
+while getopts ":c:e:i:m:" arg; do
+        case "${arg}" in
+                i)
+                        inf=${OPTARG}
+                        ;;
+                e)
+                        env=${OPTARG}
+                        ;;
+        esac
+done
+shift $((OPTIND-1))
+
+
+if [[ -z "$inf" ]]; then
+
+    echo "infrastructure is required"
+    usage
+    exit 1
+fi
+
+if [[ -z "$env" ]]; then
+
+    echo "environment is required"
+    usage
+    exit 1
+fi
+
+#set +x
+#set -e
 set -x
+#Export environment variables
+source  ../env/${env}/.env
+
 printf "\n\nDeploying Project...\n\n"
 
 CWD=`pwd`
@@ -12,6 +52,7 @@ cd "${SCRIPT_DIR}"
 
 source ../lib-common.sh
 
+
 ENV_CONFIG="helm/env/values.yaml"
 
 if [ ! -f "${ENV_CONFIG}" ] ; then
@@ -21,20 +62,15 @@ if [ ! -f "${ENV_CONFIG}" ] ; then
 
 fi
 
-NAMESPACE=demo-tomcat
-
 #set -e
 #set +x
 
 helm template ./helm \
     -f "${ENV_CONFIG}" \
-    --set image.tag="${DEMO_APP_VERSION}" \
+    --set image.tag="${VERSION}" \
     --namespace "${NAMESPACE}" \
     | kubectl apply --namespace "${NAMESPACE}" -f -
     #| kubectl apply --namespace "${NAMESPACE}" -f - -o yaml --dry-run=client
-
-
-
 
 #set +e
 

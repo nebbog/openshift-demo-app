@@ -42,9 +42,7 @@ fi
 
 if [[ -z "$branchToBuild" ]]; then
 
-    echo "branch is required"
-    usage
-    exit 1
+     branchToBuild="hotfix"
 fi
 
 #set +x
@@ -65,7 +63,7 @@ gitPull "$branchToBuild"
 
 source lib-common.sh
 
-gitVersionUpdate "develop"
+gitVersionUpdate "patch"
 
 echo "Building DEMO_APP ${VERSION}..."
 
