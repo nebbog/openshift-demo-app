@@ -95,7 +95,7 @@ function gitVersionUpdate() {
         patch=$((patch + 1 ))
         build=0
         ;;
-        build)
+        develop)
         build=$((build + 1 ))
         ;;
         *)
