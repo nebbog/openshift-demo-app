@@ -8,7 +8,7 @@ pipeline {
           serviceAccountName: jenkins-agent
           containers:
           - name: builder
-            image: localhost:30100/dockerbash:1.5.0
+            image: localhost:30100/builder:1.0.0
             command:
             - cat
             tty: true
