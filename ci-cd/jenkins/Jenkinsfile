@@ -19,7 +19,7 @@ pipeline {
               runAsUser: 1000
               runAsGroup: 1000
           - name: docker
-            image: localhost:30100/dockerbash:1.6.0
+            image: localhost:30100/dockerbash:1.7.0
             command:
             - cat
             tty: true
