@@ -63,7 +63,15 @@ gitPull "$branchToBuild"
 
 source lib-common.sh
 
-gitVersionUpdate "patch"
+if [ "$branchToBuild" = "prod" ]; then
+
+    gitVersionUpdate "patch"
+
+elif [ "$branchToBuild" = "develop" ]; then
+
+    gitVersionUpdate "develop"
+fi
+
 
 echo "Building DEMO_APP ${VERSION}..."
 
