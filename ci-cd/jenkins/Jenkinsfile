@@ -7,6 +7,17 @@ pipeline {
         spec:
           serviceAccountName: jenkins-agent
           containers:
+          - name: builder
+            image: localhost:30100/dockerbash:1.5.0
+            command:
+            - cat
+            tty: true
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
           - name: docker
             image: localhost:30100/dockerbash:1.5.0
             command:
@@ -19,12 +30,6 @@ pipeline {
           - name: docker-sock
             hostPath:
               path: /var/run/docker.sock    
-          securityContext:
-            seccompProfile:
-              type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
         '''
     }
   }
@@ -32,7 +37,7 @@ pipeline {
  
    stage('Build Java project - demo-app') {
      steps{
-       container('docker') {
+       container('builder') {
          withCredentials([usernamePassword(credentialsId: 'omantel-git-user', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
            script {
              sh 'git remote set-url origin http://${GIT_USERNAME}:"${GIT_PASSWORD}"@gitlab.lab.local/nebbog/omantel-demo-app.git'
