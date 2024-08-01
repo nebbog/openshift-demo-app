@@ -81,7 +81,7 @@ pipeline {
             sh 'curl -LO https://get.helm.sh/helm-v3.15.3-linux-amd64.tar.gz'
             sh 'tar -zxvf helm-v3.15.3-linux-amd64.tar.gz;cp linux-amd64/helm /tmp'
             sh 'kubectl version;helm version'
-            sh 'cd ci-cd/k8s;./deploy.sh'
+            sh 'cd ci-cd/k8s;./deploy.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT}'
          }
        }
      }
