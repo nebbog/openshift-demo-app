@@ -75,3 +75,4 @@ helm template ./helm \
 #set +e
 
 cd "${CWD}"
+
