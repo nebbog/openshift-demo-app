@@ -38,6 +38,7 @@ pipeline {
          withCredentials([usernamePassword(credentialsId: 'omantel-git-user', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
            script {
              sh 'git remote set-url origin http://${GIT_USERNAME}:"${GIT_PASSWORD}"@gitlab.lab.local/nebbog/omantel-demo-app.git'
+             sh 'git config --global credential.helper cache'
              sh 'pwd;ls -lrth'
              sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
            }
