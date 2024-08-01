@@ -39,6 +39,8 @@ pipeline {
            script {
              sh 'git remote set-url origin http://${GIT_USERNAME}:"${GIT_PASSWORD}"@gitlab.lab.local/nebbog/omantel-demo-app.git'
              sh 'git config --global credential.helper cache'
+             sh 'git config --global user.email "gituser@lab.local"'
+             sh 'git config --global user.name "Omantel git user"'
              sh 'pwd;ls -lrth'
              sh 'cd ci-cd;./build.sh -i \${INFRASTRUCTURE} -e \${ENVIRONMENT} -b \${BRANCH}'
            }
