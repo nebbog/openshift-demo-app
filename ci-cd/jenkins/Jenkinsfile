@@ -5,19 +5,8 @@ pipeline {
         apiVersion: v1
         kind: Pod
         spec:
-          containers:
           serviceAccountName: jenkins-agent
-          - name: builder
-            image: localhost:30100/dockerbash:1.5.0
-            command:
-            - cat
-            tty: true
-          securityContext:
-            seccompProfile:
-              type: RuntimeDefault
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
+          containers:
           - name: docker
             image: localhost:30100/dockerbash:1.5.0
             command:
