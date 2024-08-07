@@ -3,7 +3,7 @@ pipeline {
     kubernetes {
      podTemplate(label: "mypod", 
      cloud: "openshift", 
-     inheritFrom: "nebbog/builder:1.2.0" 
+     inheritFrom: "nebbog/builder:1.2.0") 
     }
   }
 
