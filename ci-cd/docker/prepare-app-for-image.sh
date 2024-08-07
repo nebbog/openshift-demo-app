@@ -50,6 +50,7 @@ if [[ "$(docker images -q ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION})" 
     cd "${SCRIPT_DIR}"
 
     rm target/demo-app.war
+    oc start-build ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION} --from=.
 
     cd "${CWD}"
 
