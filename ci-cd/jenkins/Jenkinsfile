@@ -1,23 +1,9 @@
 pipeline {
   agent {
     kubernetes {
-      yaml '''
-        apiVersion: v1
-        kind: Pod
-        spec:
-          containers:
-          - name: builder
-            image: nebbog/builder:1.2.0
-            command:
-            - cat
-            tty: true
-            securityContext:
-              seccompProfile:
-                type: RuntimeDefault
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
-        '''
+     podTemplate(label: "mypod", 
+     cloud: "openshift", 
+     inheritFrom: "nebbog/builder:1.2.0" 
     }
   }
 
