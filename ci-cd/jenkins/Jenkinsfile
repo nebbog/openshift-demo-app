@@ -1,9 +1,25 @@
 pipeline {
-  agent {
+ agent {
     kubernetes {
-     label: "mypod", 
-     cloud: "openshift", 
-     inheritFrom: "nebbog/builder:1.2.0"
+      cloud 'openshift'
+      label builder
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          labels:
+            worker: ${builder}
+        spec:
+          containers:
+          - name: jnlp
+            image: image-registry.openshift-image-registry.svc:5000/openshift/jenkins-agent-base-rhel8:latest
+            args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
+          - name: java
+            image: image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+            command:
+             - cat
+            tty: true
+       """
     }
   }
 
