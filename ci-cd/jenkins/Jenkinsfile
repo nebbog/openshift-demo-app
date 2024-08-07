@@ -2,7 +2,6 @@ pipeline {
  agent {
     kubernetes {
       cloud 'openshift'
-      label builder
       yaml """
         apiVersion: v1
         kind: Pod
