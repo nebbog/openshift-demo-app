@@ -28,17 +28,17 @@ shift $((OPTIND-1))
 
 if [[ -z "$inf" ]]; then
       
-    inf="qa"
+    inf="prod"
 fi
 
 if [[ -z "$env" ]]; then
 
-     env="qa"
+     env="prod"
 fi
 
 if [[ -z "$branchToBuild" ]]; then
 
-     branchToBuild="hotfix"
+     branchToBuild="main"
 fi
 
 #set +x
