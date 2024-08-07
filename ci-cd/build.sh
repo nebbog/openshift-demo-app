@@ -38,7 +38,7 @@ fi
 
 if [[ -z "$branchToBuild" ]]; then
 
-     branchToBuild="main"
+     branchToBuild="patch"
 fi
 
 #set +x
