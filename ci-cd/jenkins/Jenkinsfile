@@ -9,14 +9,11 @@ pipeline {
  
    stage('Build Java project - demo-app') {
      steps{
-       container('builder') {
-         script {
-           sh 'cd ci-cd;./build.sh'
-         }
+       script {
+         sh 'cd ci-cd;./build.sh'
        }
      }
    }
-
    
  }
 }
