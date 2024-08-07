@@ -8,7 +8,7 @@ pipeline {
         spec:
           serviceAccountName: jenkins-agent
           securityContext:
-            runAsUser: 1000
+            runAsUser: 1003760001
           containers:
           - name: builder
             image: nebbog/builder:1.3.0
