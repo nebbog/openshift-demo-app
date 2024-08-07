@@ -8,26 +8,17 @@ pipeline {
         spec:
           serviceAccountName: jenkins-agent
           containers:
-          - name: jnlp
-            image: jenkins/inbound-agent
+          - name: builder
+            image: nebbog/builder:1.5.0
+            command:
+            - cat
+            tty: true
             volumeMounts:
             - name: home-volume
               mountPath: /home/jenkins
             env:
             - name: HOME
               value: /home/jenkins
-          - name: builder
-            image: nebbog/builder:1.5.0
-            command:
-            - cat
-            tty: true
-            securityContext:
-              seccompProfile:
-                type: RuntimeDefault
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
-
           volumes:
           - name: home-volume
             emptyDir: {}
