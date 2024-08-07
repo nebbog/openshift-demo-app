@@ -7,14 +7,23 @@ pipeline {
         kind: Pod
         spec:
           serviceAccountName: jenkins-agent
-          securityContext:
-            runAsUser: 1003760001
           containers:
+          - name: jnlp
+            image: jenkins/inbound-agent
+            volumeMounts:
+            - name: home-volume
+              mountPath: /home/jenkins
+            env:
+            - name: HOME
+              value: /home/jenkins
           - name: builder
             image: nebbog/builder:1.3.0
             command:
             - cat
             tty: true
+          volumes:
+          - name: home-volume
+            emptyDir: {}
        """
     }
   }
