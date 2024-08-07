@@ -27,17 +27,13 @@ shift $((OPTIND-1))
 
 
 if [[ -z "$inf" ]]; then
-
-    echo "infrastructure is required"
-    usage
-    exit 1
+      
+    inf="qa"
 fi
 
 if [[ -z "$env" ]]; then
 
-    echo "environment is required"
-    usage
-    exit 1
+     env="qa"
 fi
 
 if [[ -z "$branchToBuild" ]]; then
