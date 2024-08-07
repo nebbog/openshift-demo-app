@@ -5,7 +5,6 @@ pipeline {
         apiVersion: v1
         kind: Pod
         spec:
-          serviceAccountName: jenkins-agent
           containers:
           - name: builder
             image: nebbog/builder:1.2.0
