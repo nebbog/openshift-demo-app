@@ -32,8 +32,10 @@ pipeline {
  
    stage('Build Java project - demo-app') {
      steps{
-       script {
-         sh 'cd ci-cd;./build.sh'
+       container('builder') {
+         script {
+           sh 'cd ci-cd;./build.sh'
+         }
        }
      }
    }
