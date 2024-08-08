@@ -48,7 +48,7 @@ pipeline {
      }
    }
   
-  stage 'Build image using buildconfigs: my-demo-app-image' {
+  stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
       openshiftBuild(namespace: 'nebbog-dev', buildConfig: 'my-demo-app-image', showBuildLogs: 'true')
     }
