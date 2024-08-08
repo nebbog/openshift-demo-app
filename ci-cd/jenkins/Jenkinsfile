@@ -60,13 +60,16 @@ pipeline {
      }
    }
 
-  stage('Make demo-app tomcat image') {
+  stage('Build demo-app tomcat image') {
      steps{
-       script {
-         sh 'cd ci-cd/docker;./oc-make-image.sh'
+       container('docker') {
+         script {
+           sh 'cd ci-cd/docker;./make-image.sh'
+         }
        }
      }
    }
+
    
  }
 }
