@@ -48,15 +48,7 @@ pipeline {
      }
    }
 
-  stage('Build demo-app tomcat image') {
-     steps{
-       container('docker') {
-         script {
-           sh 'cd ci-cd/docker;./make-image.sh'
-         }
-       }
-     }
-   }
+  openshiftBuild(namespace: 'nebbog-dev', buildConfig: 'my-demo-app-image', showBuildLogs: 'true')
 
    
  }
