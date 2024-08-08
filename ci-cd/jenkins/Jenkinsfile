@@ -52,7 +52,7 @@ pipeline {
     steps{
       container('builder') {
         sh 'curl -LO "https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz"'
-        sh 'tar -zxvf oc.tar.gz;./oc version'
+        sh 'tar -zxvf oc.tar.gz'
         sh 'ls -lrth'
         sh 'chmod a+x ./oc;cp ./oc /tmp'
         sh 'ls -lrth /tmp'
