@@ -19,9 +19,6 @@ pipeline {
             env:
             - name: HOME
               value: /home/jenkins
-          volumes:
-          - name: home-volume
-            emptyDir: {}
           - name: docker
             image: nebbog/dockerbash:1.8.0
             command:
@@ -31,6 +28,8 @@ pipeline {
              - mountPath: /var/run/docker.sock
                name: docker-sock
           volumes:
+          - name: home-volume
+            emptyDir: {}
           - name: docker-sock
             hostPath:
               path: /var/run/docker.sock
