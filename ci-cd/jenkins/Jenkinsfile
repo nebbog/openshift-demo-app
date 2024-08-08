@@ -9,7 +9,7 @@ pipeline {
           serviceAccountName: jenkins-agent
           containers:
           - name: builder
-            image: nebbog/builder:1.5.0
+            image: nebbog/builder:1.6.0
             command:
             - cat
             tty: true
@@ -50,7 +50,12 @@ pipeline {
   
   stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
-      openshiftBuild(namespace: 'nebbog-dev', buildConfig: 'my-demo-app-image', showBuildLogs: 'true')
+      container('builder') {
+        sh 'curl -LO "https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz"'
+        sh 'tar -zxvf oc.tar.gz"'
+        sh 'chmod a+x ./oc;cp ./oc /tmp'
+        sh 'oc version'
+      }
     }
   }
 
