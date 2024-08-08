@@ -58,6 +58,7 @@ pipeline {
         sh 'ls -lrth /tmp'
         sh 'echo $PATH'
         sh 'which oc'
+        sh 'oc version'
       }
     }
   }
