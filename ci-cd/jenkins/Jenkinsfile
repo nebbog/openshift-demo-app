@@ -57,6 +57,7 @@ pipeline {
         sh 'chmod a+x ./oc;cp ./oc /tmp'
         sh 'ls -lrth /tmp'
         sh 'echo $PATH'
+        sh 'which oc'
       }
     }
   }
