@@ -53,8 +53,9 @@ pipeline {
       container('builder') {
         sh 'curl -LO "https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz"'
         sh 'tar -zxvf oc.tar.gz'
+        sh 'ls -lrth'
         sh 'chmod a+x ./oc;cp ./oc /tmp'
-        sh 'oc version'
+        sh './oc version'
       }
     }
   }
