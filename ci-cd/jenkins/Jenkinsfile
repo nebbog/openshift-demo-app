@@ -22,6 +22,18 @@ pipeline {
           volumes:
           - name: home-volume
             emptyDir: {}
+          - name: docker
+            image: nebbog/dockerbash:1.8.0
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock
        """
     }
   }
