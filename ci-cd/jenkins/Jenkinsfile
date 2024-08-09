@@ -57,7 +57,7 @@ pipeline {
     steps{
       container('ocpcli') {
         sh 'which oc;oc version'
-        sh 'cd ci-cd/docker;oc new-build --name=omantel-demo-app --image-stream=omantel-demo-app:latest --binary=true'
+        sh 'cd ci-cd/docker;oc new-build --name=omantel-demo-app --from-file=./Dockerfile --image-stream=omantel-demo-app:latest --binary=true'
       }
     }
   }
