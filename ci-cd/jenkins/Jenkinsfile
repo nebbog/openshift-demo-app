@@ -1,5 +1,3 @@
-DCR_CONTAINER_REGISTRY=nebbog
-DEMO_APP_DCR_REPOSITORY_NAME=demo-app
 pipeline {
  agent {
     kubernetes {
