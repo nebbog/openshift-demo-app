@@ -43,12 +43,17 @@ pipeline {
      }
    }
 
+  stage('Preparing demo-app for docker image') {
+    steps{
+      container('builder') {
+        sh 'cd ci-cd/docker;./prepare-app-for-image.sh'
+      }
+    }
+  }
   stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
       container('ocpcli') {
         sh 'which oc;oc version'
-        sh 'oc new-build --name demo-app --binary'
-        sh 'cd ci-cd/docker;oc start-build demo-app --from-dir=. --follow --wait'
         sh 'cd ci-cd/docker;./make-image.sh'
       }
     }

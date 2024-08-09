@@ -20,43 +20,10 @@ cd "${SCRIPT_DIR}"
 
 source ../lib-common.sh
 
-echo "Making DEMO_APP ${DEMO_APP_VERSION} Image..."
+echo "Making DEMO_APP ${VERSION} Image..."
 
-DEMO_APP_WAR_BUILD_PATH=../../build/libs/demo-app.war
+echo "oc start-build demo-app --from-dir=. --follow --wait"
+echo "oc tag ${DEMO_APP_DCR_REPOSITORY_NAME}:latest ${DEMO_APP_DCR_REPOSITORY_NAME}:${VERSION}"
 
-if [[ ! -f "$DEMO_APP_WAR_BUILD_PATH" ]]; then
-    echo "Error: Unable to find DEMO_APP WAR File ${DEMO_APP_WAR_BUILD_PATH}. Did you forget to build the project?"
-    exit 1
-fi
+cd "${CWD}"
 
-if [[ "$(docker images -q ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION})" == "" ]]; then
-
-    if [ -d target ] ; then
-        rm -fr target
-    fi
-
-    set -x
-
-    mkdir target
-
-    cp "${DEMO_APP_WAR_BUILD_PATH}" target/.
-
-    mkdir target/demo-app
-
-    cd target/demo-app
-
-    jar -xvf ../demo-app.war
-
-    cd "${SCRIPT_DIR}"
-
-    rm target/demo-app.war
-
-    oc tag ${DEMO_APP_DCR_REPOSITORY_NAME}:latest ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION}
-
-    cd "${CWD}"
-
-else
-
-    echo "Info: Image ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION} already exists - will NOT re-build it."
-
-fi
