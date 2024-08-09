@@ -45,15 +45,6 @@ pipeline {
      }
    }
 
-  stage('Preparing demo-app for tomcat image') {
-     steps{
-       container('builder') {
-         script {
-         }
-       }
-     }
-   }
-  
   stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
       container('ocpcli') {
