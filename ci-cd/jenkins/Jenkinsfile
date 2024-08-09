@@ -56,9 +56,8 @@ pipeline {
   stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
       container('ocpcli') {
-        sh 'ls -lrth'
-        sh 'which oc'
-        sh 'oc version'
+        sh 'cd ci-cd/docker;ls -lrth;which oc;oc version'
+        sh 'oc start-build omantel-demo-app --from-file=./Dockerfile'
       }
     }
   }
