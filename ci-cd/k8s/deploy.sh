@@ -69,7 +69,7 @@ helm template ./helm \
     -f "${ENV_CONFIG}" \
     --set image.tag="${VERSION}" \
     --namespace "${NAMESPACE}" \
-    | kubectl apply --namespace "${NAMESPACE}" -f -
+    | oc apply --namespace "${NAMESPACE}" -f -
     #| kubectl apply --namespace "${NAMESPACE}" -f - -o yaml --dry-run=client
 
 #set +e
