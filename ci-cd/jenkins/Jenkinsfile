@@ -8,6 +8,11 @@ pipeline {
         spec:
           serviceAccountName: jenkins-agent
           containers:
+          - name:  ocpcli
+            image: nebbog/ocpcli:1.0.0
+            command:
+            - cat
+            tty: true
           - name: builder
             image: nebbog/builder:1.7.0
             command:
@@ -50,7 +55,7 @@ pipeline {
   
   stage('Build image using buildconfigs: my-demo-app-image') {
     steps{
-      container('builder') {
+      container('ocpcli') {
         sh 'which oc'
         sh 'oc version'
       }
