@@ -24,16 +24,14 @@ shift $((OPTIND-1))
 
 if [[ -z "$inf" ]]; then
 
-    echo "infrastructure is required"
-    usage
-    exit 1
+   inf="prod"
+
 fi
 
 if [[ -z "$env" ]]; then
 
-    echo "environment is required"
-    usage
-    exit 1
+   env="prod"
+
 fi
 
 #set +x
@@ -65,7 +63,7 @@ fi
 #set -e
 #set +x
 
-helm template ./helm \
+/tmp/helm template ./helm \
     -f "${ENV_CONFIG}" \
     --set image.tag="${VERSION}" \
     --namespace "${NAMESPACE}" \
