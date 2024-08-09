@@ -57,7 +57,7 @@ pipeline {
     steps{
       container('ocpcli') {
         sh 'which oc;oc version'
-        sh 'cd ci-cd/docker;oc start-build omantel-demo-app --from-file=./Dockerfile'
+        sh 'cd ci-cd/docker;oc start-build .'
       }
     }
   }
