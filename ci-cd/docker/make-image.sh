@@ -51,7 +51,7 @@ if [[ "$(docker images -q ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION})" 
 
     rm target/demo-app.war
 
-    docker build --tag ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION} .
+    oc tag ${DEMO_APP_DCR_REPOSITORY_NAME}:latest ${DEMO_APP_DCR_REPOSITORY_NAME}:${DEMO_APP_VERSION}
 
     cd "${CWD}"
 
