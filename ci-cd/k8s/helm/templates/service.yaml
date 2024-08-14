@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: demo-app 
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: demo-app
   ports:

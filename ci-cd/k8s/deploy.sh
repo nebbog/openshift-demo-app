@@ -73,5 +73,7 @@ fi
 
 #set +e
 
+oc expose svc demo-app -n "${NAMESPACE}" 
+
 cd "${CWD}"
 
