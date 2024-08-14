@@ -73,6 +73,7 @@ fi
 
 #set +e
 
+oc delete route demo-app -n "${NAMESPACE}" 
 oc expose svc demo-app -n "${NAMESPACE}" 
 
 cd "${CWD}"
