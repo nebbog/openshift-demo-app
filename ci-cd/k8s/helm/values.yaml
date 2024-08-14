@@ -1,5 +1,5 @@
 image:
-  repository: "demo-app"
+  repository: "image-registry.openshift-image-registry.svc:5000/nebbog-dev/demo-app"
   pullPolicy: "IfNotPresent"
 
 readinessProbe:
