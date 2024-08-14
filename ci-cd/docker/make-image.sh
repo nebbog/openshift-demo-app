@@ -23,7 +23,7 @@ source ../lib-common.sh
 echo "Making DEMO_APP ${VERSION} Image..."
 
 echo "oc start-build demo-app --from-dir=. --follow --wait"
-oc tag ${DEMO_APP_DCR_REPOSITORY_NAME}:latest ${DEMO_APP_DCR_REPOSITORY_NAME}:${VERSION}
+oc tag ${DEMO_APP_DCR_REPOSITORY_NAME} ${DEMO_APP_DCR_REPOSITORY_NAME}:${VERSION}
 
 cd "${CWD}"
 
