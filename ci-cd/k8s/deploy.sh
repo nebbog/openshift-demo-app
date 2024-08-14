@@ -63,7 +63,6 @@ fi
 #set -e
 #set +x
 
-NAMESPACE="nebbog-dev"
 
 /tmp/helm template ./helm \
     -f "${ENV_CONFIG}" \
