@@ -1,1 +1,0 @@
-# omantel-demo-app
