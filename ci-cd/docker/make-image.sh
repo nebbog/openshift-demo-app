@@ -22,9 +22,7 @@ source ../lib-common.sh
 
 echo "Making DEMO_APP ${VERSION} Image..."
 
-pwd
-ls -lrth
-
+oc new-build --name demo-app --binary --strategy docker -o yaml | oc apply -f -
 oc start-build demo-app --from-dir=. --follow --wait
 #oc tag ${DEMO_APP_DCR_REPOSITORY_NAME} ${DEMO_APP_DCR_REPOSITORY_NAME}:${VERSION}
 
