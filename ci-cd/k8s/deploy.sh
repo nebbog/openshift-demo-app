@@ -73,9 +73,9 @@ fi
 
 #set +e
 
-isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${NAMESPACE})
+isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${DEMO_APP_NAME})
 if [[ -z ${isRoute} ]]; then
-  oc expose svc demo-app -n "${NAMESPACE}"
+  oc expose svc demo-app -n "${DEMO_APP_NAME}"
 fi
 
 cd "${CWD}"

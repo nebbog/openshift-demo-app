@@ -3,6 +3,7 @@
 
 DCR_CONTAINER_REGISTRY=nebbog
 DEMO_APP_DCR_REPOSITORY_NAME=demo-app
+DEMO_APP_NAME=demo-app
 
 #set +x
 set -x
