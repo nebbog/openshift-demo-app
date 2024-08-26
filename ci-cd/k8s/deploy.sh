@@ -75,7 +75,7 @@ fi
 
 isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${DEMO_APP_NAME})
 if [[ -z ${isRoute} ]]; then
-  cd ../../../openshift-demo-app/ci-cd/k8s
+  cd ../../../demo-infrastructure-route/ci-cd/k8s/route
   ./deploy.sh -i prod
 fi
 
