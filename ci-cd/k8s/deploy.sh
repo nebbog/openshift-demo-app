@@ -73,8 +73,10 @@ fi
 
 #set +e
 
-oc delete route demo-app -n "${NAMESPACE}" 
-oc expose svc demo-app -n "${NAMESPACE}" 
+isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${NAMESPACE})
+if [[ -z ${isRoute} ]]; then
+  oc expose svc demo-app -n "${NAMESPACE}"
+fi
 
 cd "${CWD}"
 
