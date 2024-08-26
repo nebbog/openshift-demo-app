@@ -75,7 +75,8 @@ fi
 
 isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${DEMO_APP_NAME})
 if [[ -z ${isRoute} ]]; then
-  oc expose svc demo-app -n "${DEMO_APP_NAME}"
+  cd ../../../openshift-demo-app/ci-cd/k8s
+  ./deploy.sh -i prod
 fi
 
 cd "${CWD}"
