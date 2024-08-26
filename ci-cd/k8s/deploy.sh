@@ -75,7 +75,9 @@ fi
 
 isRoute=$(oc get -n ${NAMESPACE} route --field-selector metadata.name=${DEMO_APP_NAME})
 if [[ -z ${isRoute} ]]; then
-  cd ../../../demo-infrastructure-route/ci-cd/k8s/route
+  cd ../../..
+  git clone https://github.com/nebbog/demo-infrastructure-route
+  cd demo-infrastructure-route/ci-cd/k8s/route 
   ./deploy.sh -i prod
 fi
 
