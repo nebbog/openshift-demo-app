@@ -33,16 +33,6 @@ pipeline {
 
   stages {
  
-   stage('setup Java project - nebbog-dev') {
-     steps{
-       container('ocpcli') {
-         script {
-           sh 'cd ci-cd;./setup.sh'
-         }
-       }
-     }
-   }
-
    stage('Build Java project - demo-app') {
      steps{
        container('builder') {
