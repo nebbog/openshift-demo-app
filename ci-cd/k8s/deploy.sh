@@ -66,7 +66,7 @@ fi
 
 /tmp/helm template ./helm \
     -f "${ENV_CONFIG}" \
-    --set image.tag="latest" \
+    --set image.tag="${VERSION}" \
     --namespace "${NAMESPACE}" \
     | oc apply --namespace "${NAMESPACE}" -f -
     #| kubectl apply --namespace "${NAMESPACE}" -f - -o yaml --dry-run=client
